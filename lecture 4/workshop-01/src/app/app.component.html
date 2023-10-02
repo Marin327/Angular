@@ -1,0 +1,29 @@
+<app-header></app-header>
+<div class="container">
+  <main>
+    <app-theme></app-theme>
+  </main>
+
+  <ng-template #recentPostTemplate let-item let-index="index">
+    <a href="#">
+      <h3>{{item.themeId.themeName}}</h3>
+      <p>{{item.userId.username}}</p>
+      <p><span>{{item.created_at}}</span></p>
+    </a>
+  </ng-template>
+
+  <ng-template #recentPostOtherTemplate let-item let-index="index">
+    {{index}} {{"<----->"}}
+      <a href="#">
+        <h3>{{item.themeId.themeName}}</h3>
+        <p>{{item.userId.username}}</p>
+        <p><span>{{item.created_at}}</span></p>
+      </a>
+  </ng-template>
+
+  <button (click)="toggleTemplate = !toggleTemplate">CHANGE VIEW</button>
+
+  <app-aside title="Recent posts" [items]="recentPosts"
+    [itemTemplateRef]="toggleTemplate ? recentPostTemplate: recentPostOtherTemplate"></app-aside>
+</div>
+<app-footer></app-footer>
