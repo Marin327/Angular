@@ -1,0 +1,25 @@
+import { Component } from '@angular/core';
+import { Order } from '../model/order.model';
+import { OrderRepository } from '../model/order.repository';
+
+@Component({
+	templateUrl: 'orderTable.component.html'
+})
+export class OrderTableComponent {
+	includeShipped = false;
+
+	constructor(private repository: OrderRepository) {}
+
+	getOrders(): Order[] {
+		return this.repository.getOrders().filter((o) => this.includeShipped || !o.shiped);
+	}
+
+	markShipped(order: Order) {
+		order.shiped = true;
+		this.repository.updateOrder(order);
+	}
+
+	delete(id: number) {
+		this.repository.deleteOrder(id);
+	}
+}
